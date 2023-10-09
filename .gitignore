@@ -4,3 +4,11 @@ node_modules
 .dumi/tmp-test
 .dumi/tmp-production
 .DS_Store
+/node_modules
+/npm-debug.log*
+/yarn-error.log
+.idea
+.git
+.vscode
+.history
+/dll/
