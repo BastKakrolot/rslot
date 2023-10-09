@@ -1,11 +1,15 @@
-import React, { forwardRef, useContext } from 'react';
+import React, {
+  ComponentProps,
+  ComponentRef,
+  forwardRef,
+  useContext,
+} from 'react';
 
 import withSlot, { SlotElementContext } from './withSlot';
 
-
-function RSlot(props, ref) {
+function RSlot(props: ComponentProps<any>, ref: ComponentRef<any>) {
   const { name, ...rest } = props;
-  const elementDict = useContext(SlotElementContext);
+  const elementDict: Record<any, any> = useContext(SlotElementContext);
   const targetElement = elementDict[name];
   const { props: targetProps } = targetElement || {};
   const targetChildren = targetProps?.children;
@@ -17,9 +21,13 @@ function RSlot(props, ref) {
     });
   }
   return targetElement
-    ? React.cloneElement(targetElement, { ...rest, ...targetProps, ref: targetElement.ref ?? ref })
+    ? React.cloneElement(targetElement, {
+        ...rest,
+        ...targetProps,
+        ref: targetElement.ref ?? ref,
+      })
     : null;
 }
 
-const  Slot =  forwardRef(RSlot);
-export { withSlot, Slot };
+const Slot = forwardRef(RSlot);
+export { Slot, withSlot };
