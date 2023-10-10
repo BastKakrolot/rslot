@@ -17,5 +17,5 @@ features:
     description: 使 UI 组合更加优雅
   - title: 作用域插槽
     emoji: 🚀
-    description: #
+    description: ❗️作用域插槽可能会产生黑盒效应！
 ---
