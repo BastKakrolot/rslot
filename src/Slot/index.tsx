@@ -1,13 +1,17 @@
 import React, {
-  ComponentProps,
   ComponentRef,
   forwardRef,
+  PropsWithChildren,
   useContext,
 } from 'react';
 
 import withSlot, { SlotElementContext } from './withSlot';
 
-function RSlot(props: ComponentProps<any>, ref: ComponentRef<any>) {
+interface RSlotProps {
+  name: string;
+}
+
+function RSlot(props: PropsWithChildren<RSlotProps>, ref: ComponentRef<any>) {
   const { name, ...rest } = props;
   const elementDict: Record<any, any> = useContext(SlotElementContext);
   const targetElement = elementDict[name];

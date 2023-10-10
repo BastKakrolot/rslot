@@ -13,3 +13,4 @@ node_modules
 .vscode
 .history
 /dll/
+/docs-dist
