@@ -31,13 +31,80 @@
 
 ## Usage
 
-TODO
+### Slot & withSlot
+
+```jsx
+import { Slot, withSlot } from 'rslot';
+
+const Template = withSlot((props) => {
+  return (
+    <div>
+      <h1>变身</h1>
+      <Slot name="header" />
+      <Slot name="content" />
+      <Slot name="footer" />
+    </div>
+  );
+});
+
+export default () => {
+  return (
+    <Template>
+      <h3 slot="content">我来组成身体</h3>
+      <h2 slot="header">我来组成头部</h2>
+      <h4 slot="footer">我来组成脚部</h4>
+    </Template>
+  );
+};
+```
+
+### Await
+
+```jsx
+import React, { useMemo } from 'react';
+import { Button } from 'antd';
+import { useBoolean } from 'ahooks';
+import { Await } from 'rslot';
+
+const getPromise = (bool) =>
+  new Promise((resolve, reject) => {
+    setTimeout(() => {
+      bool ? resolve('success') : reject('error');
+    }, 2000);
+  });
+
+export default function Demo() {
+  const [bool, { toggle }] = useBoolean(true);
+  const promise = useMemo(() => getPromise(bool), [bool]);
+  return (
+    <>
+      <Button onClick={toggle}>toggle</Button>
+      <div>status: {String(bool)}</div>
+      <div>
+        <span>render: </span>
+        <Await
+          resolve={promise}
+          fallback={<span>loading</span>}
+          errorElement={(error) => <span>{error}</span>}
+        >
+          {(value) => <span>{value}</span>}
+        </Await>
+      </div>
+    </>
+  );
+}
+```
+
+### 其他插件
+
+#### 未完待续..
 
 ## Options
 
 - [x] 默认插槽
 - [x] 具名插槽
 - [x] 作用域插槽
+- [ ] .....
 
 ## LICENSE
 
