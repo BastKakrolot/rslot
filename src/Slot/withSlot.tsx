@@ -1,15 +1,17 @@
 import React, {
   ComponentProps,
+  ComponentRef,
   createContext,
-  FunctionComponent,
+  ElementType,
+  forwardRef,
   useMemo,
 } from 'react';
 
-export const SlotElementContext = createContext({});
+export const SlotElementContext = createContext<any>({});
 
 // NOTE: 收集插槽子元素，并注入到「SlotElementContext」当中，供「Slot」组件消费
-const withSlot =
-  (CustomComponent: FunctionComponent) => (props: ComponentProps<any>) => {
+const withSlot = (CustomComponent: ElementType) =>
+  forwardRef((props: ComponentProps<any>, ref: ComponentRef<any>) => {
     const { children: originChildren } = props;
     // 未使用插槽功能的子element
 
@@ -42,11 +44,11 @@ const withSlot =
 
     return (
       <SlotElementContext.Provider value={slotElementDic}>
-        <CustomComponent {...props} slotList={slotList}>
+        <CustomComponent ref={ref} {...props} slotList={slotList}>
           {restChildren}
         </CustomComponent>
       </SlotElementContext.Provider>
     );
-  };
+  });
 
 export default withSlot;

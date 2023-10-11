@@ -1,2 +1,3 @@
+import { Await, useAsyncError, useAsyncValue } from './Await';
 import { Slot, withSlot } from './Slot';
-export { Slot, withSlot };
+export { Await, Slot, useAsyncError, useAsyncValue, withSlot };
